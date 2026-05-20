@@ -5,7 +5,6 @@ def try_completion() -> None:
     # 在下一行手动输入 hutb. 观察补全
     # 在下一行手动输入 mcp. 观察补全
     _ = hutb
-    hutb.
     _ = mcp
 mcp
 def try_diagnostics() -> None:
