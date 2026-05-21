@@ -1,0 +1,379 @@
+{
+  "hutb": {
+    "functions": [
+      {
+        "name": "init_simulator",
+        "module": "hutb",
+        "description": "初始化人车模拟器，建立与仿真引擎的连接",
+        "params": [
+          { "name": "host", "type": "str", "required": false, "description": "仿真引擎主机地址，默认为 'localhost'" },
+          { "name": "port", "type": "int", "required": false, "description": "仿真引擎端口号，默认为 8000" },
+          { "name": "timeout", "type": "float", "required": false, "description": "连接超时时间（秒），默认为 10.0" }
+        ],
+        "returnType": "Simulator",
+        "example": "sim = hutb.init_simulator(host='localhost', port=8000)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "load_scene",
+        "module": "hutb",
+        "description": "加载指定的仿真场景文件",
+        "params": [
+          { "name": "scene_path", "type": "str", "required": true, "description": "场景文件路径（.scene 格式）" },
+          { "name": "preload", "type": "bool", "required": false, "description": "是否预加载资源，默认为 True" }
+        ],
+        "returnType": "Scene",
+        "example": "scene = hutb.load_scene('/scenes/highway.scene')",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "create_vehicle",
+        "module": "hutb",
+        "description": "在仿真场景中创建一辆车辆实例",
+        "params": [
+          { "name": "vehicle_type", "type": "str", "required": true, "description": "车辆类型，如 'sedan', 'suv', 'truck'" },
+          { "name": "position", "type": "tuple", "required": true, "description": "初始位置坐标 (x, y, z)" },
+          { "name": "rotation", "type": "tuple", "required": false, "description": "初始旋转角度 (roll, pitch, yaw)，默认为 (0, 0, 0)" },
+          { "name": "color", "type": "str", "required": false, "description": "车辆颜色，默认为 'white'" }
+        ],
+        "returnType": "Vehicle",
+        "example": "car = hutb.create_vehicle('sedan', (100, 0, 50), color='blue')",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "add_sensor",
+        "module": "hutb",
+        "description": "为车辆添加传感器",
+        "params": [
+          { "name": "vehicle", "type": "Vehicle", "required": true, "description": "目标车辆实例" },
+          { "name": "sensor_type", "type": "str", "required": true, "description": "传感器类型，如 'lidar', 'camera', 'radar', 'gps'" },
+          { "name": "position", "type": "tuple", "required": false, "description": "传感器安装位置偏移 (dx, dy, dz)" },
+          { "name": "config", "type": "dict", "required": false, "description": "传感器配置参数" }
+        ],
+        "returnType": "Sensor",
+        "example": "lidar = hutb.add_sensor(car, 'lidar', position=(0, 0, 2.5))",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "init_sensor",
+        "module": "hutb",
+        "description": "【已弃用】初始化传感器，请使用 add_sensor 代替",
+        "params": [
+          { "name": "vehicle", "type": "Vehicle", "required": true, "description": "目标车辆实例" },
+          { "name": "sensor_type", "type": "str", "required": true, "description": "传感器类型" }
+        ],
+        "returnType": "Sensor",
+        "example": "sensor = hutb.init_sensor(car, 'lidar')",
+        "deprecated": true,
+        "replacement": "add_sensor"
+      },
+      {
+        "name": "start_simulation",
+        "module": "hutb",
+        "description": "开始运行仿真",
+        "params": [
+          { "name": "realtime", "type": "bool", "required": false, "description": "是否以实时速度运行，默认为 True" },
+          { "name": "max_steps", "type": "int", "required": false, "description": "最大仿真步数，0 表示无限制" }
+        ],
+        "returnType": "None",
+        "example": "hutb.start_simulation(realtime=True)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "stop_simulation",
+        "module": "hutb",
+        "description": "停止当前仿真运行",
+        "params": [],
+        "returnType": "None",
+        "example": "hutb.stop_simulation()",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "step",
+        "module": "hutb",
+        "description": "执行一步仿真推进",
+        "params": [
+          { "name": "delta_time", "type": "float", "required": false, "description": "时间步长（秒），默认为 0.02" }
+        ],
+        "returnType": "StepResult",
+        "example": "result = hutb.step(delta_time=0.02)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "get_vehicle_state",
+        "module": "hutb",
+        "description": "获取车辆的当前状态信息",
+        "params": [
+          { "name": "vehicle", "type": "Vehicle", "required": true, "description": "目标车辆实例" }
+        ],
+        "returnType": "VehicleState",
+        "example": "state = hutb.get_vehicle_state(car)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "set_vehicle_speed",
+        "module": "hutb",
+        "description": "热更新车辆目标速度，适用于仿真运行中通过 MCP 增量下发控制参数",
+        "params": [
+          { "name": "vehicle", "type": "Vehicle", "required": true, "description": "目标车辆实例" },
+          { "name": "speed", "type": "float", "required": true, "description": "目标速度（km/h），建议范围 0~250" }
+        ],
+        "returnType": "None",
+        "example": "hutb.set_vehicle_speed(car, speed=50)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "set_vehicle_control",
+        "module": "hutb",
+        "description": "设置车辆的控制输入",
+        "params": [
+          { "name": "vehicle", "type": "Vehicle", "required": true, "description": "目标车辆实例" },
+          { "name": "throttle", "type": "float", "required": false, "description": "油门开度 0.0~1.0" },
+          { "name": "brake", "type": "float", "required": false, "description": "制动力度 0.0~1.0" },
+          { "name": "steer", "type": "float", "required": false, "description": "转向角度 -1.0~1.0" }
+        ],
+        "returnType": "None",
+        "example": "hutb.set_vehicle_control(car, throttle=0.5, steer=0.1)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "update_sensor_params",
+        "module": "hutb",
+        "description": "热更新摄像头、雷达等传感器参数，保存脚本后可通过 MCP 下发到运行中的模拟器",
+        "params": [
+          { "name": "sensor", "type": "Sensor", "required": true, "description": "目标传感器实例" },
+          { "name": "sample_rate", "type": "float", "required": false, "description": "采样率（Hz），建议范围 1~240" },
+          { "name": "fov", "type": "float", "required": false, "description": "视场角（度），建议范围 1~180" }
+        ],
+        "returnType": "None",
+        "example": "hutb.update_sensor_params(camera, sample_rate=30, fov=90)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "update_scene_lighting",
+        "module": "hutb",
+        "description": "热更新场景光照强度与太阳角度，用于快速验证不同环境条件下的仿真效果",
+        "params": [
+          { "name": "intensity", "type": "float", "required": false, "description": "光照强度 0.0~1.0" },
+          { "name": "sun_angle", "type": "float", "required": false, "description": "太阳高度角（度）" }
+        ],
+        "returnType": "None",
+        "example": "hutb.update_scene_lighting(intensity=0.7, sun_angle=35)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "get_sensor_data",
+        "module": "hutb",
+        "description": "获取传感器的最新采集数据",
+        "params": [
+          { "name": "sensor", "type": "Sensor", "required": true, "description": "传感器实例" }
+        ],
+        "returnType": "SensorData",
+        "example": "data = hutb.get_sensor_data(lidar)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "set_weather",
+        "module": "hutb",
+        "description": "设置仿真环境的天气参数",
+        "params": [
+          { "name": "weather_type", "type": "str", "required": true, "description": "天气类型：'clear', 'rain', 'fog', 'snow'" },
+          { "name": "intensity", "type": "float", "required": false, "description": "天气强度 0.0~1.0，默认为 0.5" }
+        ],
+        "returnType": "None",
+        "example": "hutb.set_weather('rain', intensity=0.8)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "add_pedestrian",
+        "module": "hutb",
+        "description": "在场景中添加行人",
+        "params": [
+          { "name": "position", "type": "tuple", "required": true, "description": "行人初始位置 (x, y, z)" },
+          { "name": "target", "type": "tuple", "required": false, "description": "行人目标位置 (x, y, z)" },
+          { "name": "speed", "type": "float", "required": false, "description": "行人移动速度（m/s），默认为 1.4" }
+        ],
+        "returnType": "Pedestrian",
+        "example": "ped = hutb.add_pedestrian((50, 0, 30), target=(50, 0, 60))",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "destroy",
+        "module": "hutb",
+        "description": "销毁仿真实例并释放资源",
+        "params": [
+          { "name": "simulator", "type": "Simulator", "required": true, "description": "要销毁的模拟器实例" }
+        ],
+        "returnType": "None",
+        "example": "hutb.destroy(sim)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "get_collision_info",
+        "module": "hutb",
+        "description": "获取碰撞检测信息",
+        "params": [
+          { "name": "vehicle", "type": "Vehicle", "required": true, "description": "目标车辆实例" }
+        ],
+        "returnType": "CollisionInfo",
+        "example": "collision = hutb.get_collision_info(car)",
+        "deprecated": false,
+        "replacement": ""
+      }
+    ]
+  },
+  "mcp": {
+    "functions": [
+      {
+        "name": "connect",
+        "module": "mcp",
+        "description": "建立MCP通信连接",
+        "params": [
+          { "name": "address", "type": "str", "required": true, "description": "目标地址，格式为 'host:port'" },
+          { "name": "protocol", "type": "str", "required": false, "description": "通信协议，'tcp' 或 'udp'，默认为 'tcp'" },
+          { "name": "auth_token", "type": "str", "required": false, "description": "认证令牌" }
+        ],
+        "returnType": "Connection",
+        "example": "conn = mcp.connect('192.168.1.100:9000', protocol='tcp')",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "disconnect",
+        "module": "mcp",
+        "description": "断开MCP通信连接",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "要断开的连接实例" }
+        ],
+        "returnType": "None",
+        "example": "mcp.disconnect(conn)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "send_message",
+        "module": "mcp",
+        "description": "通过MCP协议发送消息",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "通信连接实例" },
+          { "name": "topic", "type": "str", "required": true, "description": "消息主题" },
+          { "name": "payload", "type": "dict", "required": true, "description": "消息内容（字典格式）" },
+          { "name": "qos", "type": "int", "required": false, "description": "服务质量等级 0/1/2，默认为 1" }
+        ],
+        "returnType": "bool",
+        "example": "mcp.send_message(conn, 'vehicle/control', {'speed': 30})",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "receive_message",
+        "module": "mcp",
+        "description": "接收MCP消息",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "通信连接实例" },
+          { "name": "topic", "type": "str", "required": true, "description": "订阅的消息主题" },
+          { "name": "timeout", "type": "float", "required": false, "description": "接收超时时间（秒），默认为 5.0" }
+        ],
+        "returnType": "Message",
+        "example": "msg = mcp.receive_message(conn, 'sensor/lidar', timeout=3.0)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "subscribe",
+        "module": "mcp",
+        "description": "订阅指定主题的消息",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "通信连接实例" },
+          { "name": "topic", "type": "str", "required": true, "description": "消息主题" },
+          { "name": "callback", "type": "callable", "required": true, "description": "消息到达时的回调函数" }
+        ],
+        "returnType": "Subscription",
+        "example": "sub = mcp.subscribe(conn, 'vehicle/state', on_state_update)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "unsubscribe",
+        "module": "mcp",
+        "description": "取消订阅指定主题",
+        "params": [
+          { "name": "subscription", "type": "Subscription", "required": true, "description": "订阅实例" }
+        ],
+        "returnType": "None",
+        "example": "mcp.unsubscribe(sub)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "create_channel",
+        "module": "mcp",
+        "description": "创建专用的通信通道",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "通信连接实例" },
+          { "name": "channel_name", "type": "str", "required": true, "description": "通道名称" },
+          { "name": "buffer_size", "type": "int", "required": false, "description": "缓冲区大小（字节），默认为 4096" }
+        ],
+        "returnType": "Channel",
+        "example": "ch = mcp.create_channel(conn, 'control_channel', buffer_size=8192)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "get_connection_status",
+        "module": "mcp",
+        "description": "获取当前连接的状态信息",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "通信连接实例" }
+        ],
+        "returnType": "ConnectionStatus",
+        "example": "status = mcp.get_connection_status(conn)",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "broadcast",
+        "module": "mcp",
+        "description": "向所有连接的节点广播消息",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "通信连接实例" },
+          { "name": "payload", "type": "dict", "required": true, "description": "广播消息内容" }
+        ],
+        "returnType": "int",
+        "example": "count = mcp.broadcast(conn, {'event': 'simulation_start'})",
+        "deprecated": false,
+        "replacement": ""
+      },
+      {
+        "name": "set_qos",
+        "module": "mcp",
+        "description": "设置通信连接的服务质量参数",
+        "params": [
+          { "name": "connection", "type": "Connection", "required": true, "description": "通信连接实例" },
+          { "name": "level", "type": "int", "required": true, "description": "QoS 等级 0/1/2" },
+          { "name": "retry_count", "type": "int", "required": false, "description": "重试次数，默认为 3" }
+        ],
+        "returnType": "None",
+        "example": "mcp.set_qos(conn, level=2, retry_count=5)",
+        "deprecated": false,
+        "replacement": ""
+      }
+    ]
+  }
+}
