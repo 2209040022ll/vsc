@@ -1,0 +1,76 @@
+{
+  "templates": [
+    {
+      "name": "单脚本调试",
+      "description": "调试当前打开的 Python 脚本",
+      "config": {
+        "name": "HUTB: 调试当前脚本",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "HUTB_HOME": "${workspaceFolder}"
+        },
+        "justMyCode": true
+      }
+    },
+    {
+      "name": "模拟器主程序调试",
+      "description": "调试 HUTB 模拟器主程序入口",
+      "config": {
+        "name": "HUTB: 调试模拟器主程序",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/main.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "args": ["--mode", "simulation"],
+        "env": {
+          "HUTB_HOME": "${workspaceFolder}",
+          "PYTHONPATH": "${workspaceFolder}/src"
+        },
+        "justMyCode": false
+      }
+    },
+    {
+      "name": "多机通信调试",
+      "description": "调试 MCP 多机通信场景",
+      "config": {
+        "name": "HUTB: 多机通信调试",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "HUTB_HOME": "${workspaceFolder}",
+          "MCP_HOST": "localhost",
+          "MCP_PORT": "9000"
+        },
+        "justMyCode": false
+      }
+    },
+    {
+      "name": "附加到远程模拟器",
+      "description": "附加调试器到正在运行的远程模拟器进程",
+      "config": {
+        "name": "HUTB: 附加到远程模拟器",
+        "type": "debugpy",
+        "request": "attach",
+        "connect": {
+          "host": "localhost",
+          "port": 5678
+        },
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "."
+          }
+        ],
+        "justMyCode": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "vscode": {
+    "source": "",
+    "version": "latest",
+    "portableMode": true
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-python.debugpy"
+  ],
+  "python": {
+    "source": "",
+    "version": "3.9+",
+    "packages": [
+      "hutb-sdk",
+      "mcp-protocol",
+      "numpy",
+      "matplotlib"
+    ]
+  },
+  "startScript": {
+    "windows": "start.bat"
+  },
+  "output": {
+    "namePattern": "HUTB-DevEnv-{version}-{date}",
+    "format": "zip"
+  },
+  "sampleProject": {
+    "include": true,
+    "path": "samples/"
+  }
+}
