@@ -1,0 +1,60 @@
+{
+  "scopeName": "source.python.hutb",
+  "injectionSelector": "L:source.python",
+  "patterns": [
+    { "include": "#hutb-imports" },
+    { "include": "#hutb-functions" },
+    { "include": "#mcp-functions" },
+    { "include": "#hutb-constants" },
+    { "include": "#hutb-modules" }
+  ],
+  "repository": {
+    "hutb-imports": {
+      "patterns": [
+        {
+          "match": "\\b(import|from)\\s+(hutb|mcp)\\b",
+          "captures": {
+            "1": { "name": "keyword.control.import.python" },
+            "2": { "name": "entity.name.module.hutb" }
+          }
+        }
+      ]
+    },
+    "hutb-modules": {
+      "patterns": [
+        {
+          "match": "\\b(hutb|mcp)\\b(?=\\.)",
+          "name": "entity.name.module.hutb"
+        }
+      ]
+    },
+    "hutb-functions": {
+      "patterns": [
+        {
+          "match": "(?<=hutb\\.)(init_simulator|load_scene|create_vehicle|add_sensor|start_simulation|stop_simulation|step|get_vehicle_state|set_vehicle_control|get_sensor_data|set_weather|add_pedestrian|destroy|get_collision_info)\\b",
+          "name": "entity.name.function.hutb"
+        },
+        {
+          "match": "(?<=hutb\\.)(init_sensor)\\b",
+          "name": "invalid.deprecated.hutb"
+        }
+      ]
+    },
+    "mcp-functions": {
+      "patterns": [
+        {
+          "match": "(?<=mcp\\.)(connect|disconnect|send_message|receive_message|subscribe|unsubscribe|create_channel|get_connection_status|broadcast|set_qos)\\b",
+          "name": "entity.name.function.mcp"
+        }
+      ]
+    },
+    "hutb-constants": {
+      "patterns": [
+        {
+          "match": "\\b(SENSOR_LIDAR|SENSOR_CAMERA|SENSOR_RADAR|SENSOR_GPS|WEATHER_CLEAR|WEATHER_RAIN|WEATHER_FOG|WEATHER_SNOW|VEHICLE_SEDAN|VEHICLE_SUV|VEHICLE_TRUCK|QOS_AT_MOST_ONCE|QOS_AT_LEAST_ONCE|QOS_EXACTLY_ONCE)\\b",
+          "name": "constant.other.hutb"
+        }
+      ]
+    }
+  }
+}
