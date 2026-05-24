@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import { ApiDefinitionLoader, ApiDefinitions } from '../../utils/apiLoader';
+import { ApiDefinitions } from '../../utils/apiLoader';
 import { HutbDiagnosticProvider } from '../../modules/diagnostics';
 
 suite('错误检查测试', () => {

@@ -1,44 +1,27 @@
 {
   "templates": [
     {
-      "name": "单脚本调试",
-      "description": "调试当前打开的 Python 脚本",
+      "name": "单车辆控制调试",
+      "description": "调试单车速度、转向和制动控制脚本",
       "config": {
-        "name": "HUTB: 调试当前脚本",
+        "name": "HUTB: 单车辆控制调试",
         "type": "debugpy",
         "request": "launch",
         "program": "${file}",
         "console": "integratedTerminal",
         "cwd": "${workspaceFolder}",
         "env": {
-          "HUTB_HOME": "${workspaceFolder}"
+          "HUTB_HOME": "${workspaceFolder}",
+          "HUTB_DEBUG_SCENARIO": "single_vehicle_control"
         },
         "justMyCode": true
       }
     },
     {
-      "name": "模拟器主程序调试",
-      "description": "调试 HUTB 模拟器主程序入口",
+      "name": "多车协同调试",
+      "description": "调试多车队列、跟驰和协同控制场景",
       "config": {
-        "name": "HUTB: 调试模拟器主程序",
-        "type": "debugpy",
-        "request": "launch",
-        "program": "${workspaceFolder}/main.py",
-        "console": "integratedTerminal",
-        "cwd": "${workspaceFolder}",
-        "args": ["--mode", "simulation"],
-        "env": {
-          "HUTB_HOME": "${workspaceFolder}",
-          "PYTHONPATH": "${workspaceFolder}/src"
-        },
-        "justMyCode": false
-      }
-    },
-    {
-      "name": "多机通信调试",
-      "description": "调试 MCP 多机通信场景",
-      "config": {
-        "name": "HUTB: 多机通信调试",
+        "name": "HUTB: 多车协同调试",
         "type": "debugpy",
         "request": "launch",
         "program": "${file}",
@@ -46,6 +29,7 @@
         "cwd": "${workspaceFolder}",
         "env": {
           "HUTB_HOME": "${workspaceFolder}",
+          "HUTB_DEBUG_SCENARIO": "multi_vehicle_cooperation",
           "MCP_HOST": "localhost",
           "MCP_PORT": "9000"
         },
@@ -53,22 +37,56 @@
       }
     },
     {
-      "name": "附加到远程模拟器",
-      "description": "附加调试器到正在运行的远程模拟器进程",
+      "name": "传感器数据采集调试",
+      "description": "调试摄像头、激光雷达、毫米波雷达等传感器采集链路",
       "config": {
-        "name": "HUTB: 附加到远程模拟器",
+        "name": "HUTB: 传感器数据采集调试",
         "type": "debugpy",
-        "request": "attach",
-        "connect": {
-          "host": "localhost",
-          "port": 5678
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "HUTB_HOME": "${workspaceFolder}",
+          "HUTB_DEBUG_SCENARIO": "sensor_data_collection",
+          "HUTB_SENSOR_OUTPUT": "${workspaceFolder}/hutb-reports/sensor-debug.csv"
         },
-        "pathMappings": [
-          {
-            "localRoot": "${workspaceFolder}",
-            "remoteRoot": "."
-          }
-        ],
+        "justMyCode": false
+      }
+    },
+    {
+      "name": "MCP 热重载联调",
+      "description": "调试 MCP 网关与仿真参数热重载链路",
+      "config": {
+        "name": "HUTB: MCP 热重载联调",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "HUTB_HOME": "${workspaceFolder}",
+          "HUTB_DEBUG_SCENARIO": "mcp_hot_reload",
+          "HUTB_MCP_ENDPOINT": "http://127.0.0.1:9000/hutb/hot-reload"
+        },
+        "justMyCode": false
+      }
+    },
+    {
+      "name": "批量仿真用例调试",
+      "description": "调试批量测试中的单个参数组合和结果输出",
+      "config": {
+        "name": "HUTB: 批量仿真用例调试",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/samples/batch_simulation_case.py",
+        "console": "integratedTerminal",
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "HUTB_HOME": "${workspaceFolder}",
+          "HUTB_BATCH_CASE": "debug-case",
+          "HUTB_BATCH_PARAMS": "{\"scene\":\"/scenes/urban_road.scene\",\"speed\":50,\"weather\":\"clear\"}"
+        },
         "justMyCode": false
       }
     }

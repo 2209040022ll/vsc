@@ -1,0 +1,48 @@
+{
+  "name": "HUTB 批量仿真验证",
+  "script": "${workspaceFolder}/samples/batch_simulation_case.py",
+  "pythonPath": "python",
+  "outputDir": "${workspaceFolder}/hutb-reports",
+  "timeoutMs": 60000,
+  "cases": [
+    {
+      "name": "urban_speed_30",
+      "params": {
+        "scene": "/scenes/urban_road.scene",
+        "speed": 30,
+        "weather": "clear"
+      },
+      "expected": {
+        "collision": false,
+        "maxDurationSeconds": 30,
+        "maxExitCode": 0
+      }
+    },
+    {
+      "name": "urban_speed_50_rain",
+      "params": {
+        "scene": "/scenes/urban_road.scene",
+        "speed": 50,
+        "weather": "rain"
+      },
+      "expected": {
+        "collision": false,
+        "maxDurationSeconds": 35,
+        "maxExitCode": 0
+      }
+    },
+    {
+      "name": "highway_speed_80",
+      "params": {
+        "scene": "/scenes/highway.scene",
+        "speed": 80,
+        "weather": "clear"
+      },
+      "expected": {
+        "collision": false,
+        "maxDurationSeconds": 45,
+        "maxExitCode": 0
+      }
+    }
+  ]
+}

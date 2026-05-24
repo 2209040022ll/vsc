@@ -1,7 +1,5 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
 
 suite('代码补全测试', () => {
     const extensionId = 'OpenHUTB.hutb-simulator-dev';
@@ -22,7 +20,7 @@ suite('代码补全测试', () => {
             content: 'import hutb\nhutb.'
         });
 
-        const editor = await vscode.window.showTextDocument(doc);
+        await vscode.window.showTextDocument(doc);
         const position = new vscode.Position(1, 5); // hutb. 之后
 
         // 触发补全，传入触发字符 '.' 和足够大的 resolveCount
@@ -55,7 +53,7 @@ suite('代码补全测试', () => {
             content: 'import mcp\nmcp.'
         });
 
-        const editor = await vscode.window.showTextDocument(doc);
+        await vscode.window.showTextDocument(doc);
         const position = new vscode.Position(1, 4);
 
         const completions = await vscode.commands.executeCommand<vscode.CompletionList>(

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>HUTB 批量仿真验证 - HUTB 批量仿真报告</title>
+    <style>
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; margin: 24px; color: #1f2933; background: #f7f9fb; }
+        h1 { margin-bottom: 4px; }
+        .summary { display: flex; gap: 12px; margin: 20px 0; }
+        .card { background: #fff; border: 1px solid #d8e2ec; border-radius: 8px; padding: 14px 18px; min-width: 120px; }
+        .value { font-size: 28px; font-weight: 700; }
+        table { width: 100%; border-collapse: collapse; background: #fff; }
+        th, td { border: 1px solid #d8e2ec; padding: 10px; vertical-align: top; text-align: left; }
+        th { background: #e6f0f8; }
+        pre { margin: 0; white-space: pre-wrap; word-break: break-word; }
+        .pass { color: #0b7a3b; font-weight: 700; }
+        .fail { color: #b42318; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <h1>HUTB 批量仿真验证</h1>
+    <div>脚本：c:\Users\罗亮\Desktop\面向人车模拟器的快速开发验证插件系统\测试\samples\batch_simulation_case.py</div>
+    <div>时间：2026-05-24T11:39:22.537Z - 2026-05-24T11:39:23.167Z</div>
+    <div class="summary">
+        <div class="card"><div>总用例</div><div class="value">3</div></div>
+        <div class="card"><div>通过</div><div class="value pass">0</div></div>
+        <div class="card"><div>失败</div><div class="value fail">3</div></div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>测试用例</th>
+                <th>结果</th>
+                <th>退出码</th>
+                <th>耗时</th>
+                <th>参数</th>
+                <th>指标</th>
+                <th>失败原因</th>
+            </tr>
+        </thead>
+        <tbody><tr>
+            <td>urban_speed_30</td>
+            <td class="fail">失败</td>
+            <td>2</td>
+            <td>0.24s</td>
+            <td><pre>{
+  &quot;scene&quot;: &quot;/scenes/urban_road.scene&quot;,
+  &quot;speed&quot;: 30,
+  &quot;weather&quot;: &quot;clear&quot;
+}</pre></td>
+            <td><pre>{}</pre></td>
+            <td>退出码 2 超出允许值 0; 碰撞结果不符合预期：期望 false，实际 undefined</td>
+        </tr>
+<tr>
+            <td>urban_speed_50_rain</td>
+            <td class="fail">失败</td>
+            <td>2</td>
+            <td>0.19s</td>
+            <td><pre>{
+  &quot;scene&quot;: &quot;/scenes/urban_road.scene&quot;,
+  &quot;speed&quot;: 50,
+  &quot;weather&quot;: &quot;rain&quot;
+}</pre></td>
+            <td><pre>{}</pre></td>
+            <td>退出码 2 超出允许值 0; 碰撞结果不符合预期：期望 false，实际 undefined</td>
+        </tr>
+<tr>
+            <td>highway_speed_80</td>
+            <td class="fail">失败</td>
+            <td>2</td>
+            <td>0.21s</td>
+            <td><pre>{
+  &quot;scene&quot;: &quot;/scenes/highway.scene&quot;,
+  &quot;speed&quot;: 80,
+  &quot;weather&quot;: &quot;clear&quot;
+}</pre></td>
+            <td><pre>{}</pre></td>
+            <td>退出码 2 超出允许值 0; 碰撞结果不符合预期：期望 false，实际 undefined</td>
+        </tr></tbody>
+    </table>
+</body>
+</html>
